@@ -1,0 +1,41 @@
+# This function checks if a given number is prime
+def is_prime(n):
+  if n <= 1:
+    return False
+
+  # Check if the number is divisible by any number between 2 and n-1
+  for i in range(2, n):
+    if n % i == 0:
+      return False
+
+  # If we get here, then the number is prime
+  return True
+
+# This is the main function of the program
+def main():
+  # Keep track of the sum of the even prime numbers
+  sum_of_even_primes = 0
+
+  # Keep track of the number of even prime numbers we've found
+  num_even_primes = 0
+
+  # Start checking numbers at 2
+  n = 2
+
+  # Keep checking numbers until we find 1000 even prime numbers
+  while num_even_primes < 1000:
+    # Check if the number is even and prime
+    if n % 2 == 0 and is_prime(n):
+      # Add the number to the sum and increment the count
+      sum_of_even_primes += n
+      num_even_primes += 1
+
+    # Increment n to check the next number
+    n += 1
+
+  # Print the sum of the first 1000 even prime numbers
+  print("Sum of first 1000 even prime numbers:", sum_of_even_primes)
+
+# This is the entry point for the program
+if __name__ == "__main__":
+  main()
