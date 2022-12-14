@@ -1,0 +1,38 @@
+// Import the necessary libraries
+const express = require('express');
+const openai = require('openai');
+
+// Configure OpenAI API keys
+openai.api_key = "YOUR_API_KEY_HERE";
+
+// Create an express app
+const app = express();
+
+// Set up a route to handle incoming requests
+app.get('/', (req, res) => {
+  // Parse the query string to get the user's query
+  const query = req.query.q;
+
+  // Use the OpenAI API to generate a response to the user's query
+  openai.completions
+    .create({
+      model: 'text-davinci-002',
+      prompt: query,
+      max_tokens: 1024,
+      temperature: 0.5
+    })
+    .then(response => {
+      // Send the response back to the user
+      res.send(response.data.choices[0].text);
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error(error);
+      res.send("Sorry, something went wrong.");
+    });
+});
+
+// Start the server on port 3000
+app.listen(3000, () => {
+  console.log("Server listening on port 3000");
+});
